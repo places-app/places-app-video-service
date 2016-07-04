@@ -8,4 +8,7 @@ module.exports = (app) => {
     process.send({ download: job });
     res.sendStatus(200).end();
   });
+  app.get('/', (req, res) => {
+    res.send('video service is running.');
+  });
 };

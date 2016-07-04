@@ -4,9 +4,8 @@ places-app-video-service
 ## Table of Contents
 1. [Getting started](#getting-started)
 2. [Tech](#tech)
-3. [Database Schema](#database-schema)
-4. [Team](#team)
-5. [Contributing](#contributing)
+3. [Team](#team)
+4. [Contributing](#contributing)
 
 ## Getting started
 
@@ -22,22 +21,11 @@ add any additional needed commands and instructions here
 $ npm start
 ```
 
-#### Testing
-
-Configure the environment variable `NODE_ENV` prior to running tests.
-
- ```sh
-$ export NODE_ENV=development
-$ npm test
-```
-
 ## Tech
 > node / express server
 > node clusters for workers
 > aws s3 for file uploading
 
-## Database Schema
-> Currently none.
 
 ## Directory Layout
 > Use the diagram below as an example and starting point

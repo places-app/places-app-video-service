@@ -46,7 +46,6 @@ $ npm test
 ├── /node_modules/              # 3rd-party libraries and utilities
 ├── /dist/                      # Public distribution folder
 │   ├── /videos/                # Videos
-│
 ├── /server/                    # Server source code
 │   ├── /clusters/              # Cluster processes
 │     ├── download.js           # Download worker
@@ -62,7 +61,7 @@ $ npm test
 ```
 
 ## Team
-  - Microservice Develoer:    [Sepehr Vakili](https://github.com/sepehrvakili)
+  - Microservice Developer:   [Sepehr Vakili](https://github.com/sepehrvakili)
   - Product Owner:            [Adam Lessen](https://github.com/lessenadam)
   - Scrum Master:             [Sepehr Vakili](https://github.com/sepehrvakili)
   - Development Team Members: [Jordan Tepper](https://github.com/HeroProtagonist), [Sepehr Vakili](https://github.com/jinsoocha), [Andrew Phavichitr](https://github.com/aphavichitr), [Adam Lessen](https://github.com/lessenadam)

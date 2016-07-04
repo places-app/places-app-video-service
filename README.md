@@ -34,6 +34,7 @@ $ npm test
 ## Tech
 > node / express server
 > node clusters for workers
+> aws s3 for file uploading
 
 ## Database Schema
 > Currently none.
@@ -44,30 +45,24 @@ $ npm test
 ├── /env/                       # Environment variables
 ├── /node_modules/              # 3rd-party libraries and utilities
 ├── /dist/                      # Public distribution folder
-│   ├── /images/                # Images
-│   ├── /compressedImages/      # Compressed Images
+│   ├── /videos/                # Videos
 │
 ├── /server/                    # Server source code
-│   ├── /httpServer/            # Express server
-│     ├── /config/              # Server configs
-│       ├── middleware.js       # Server middleware
-│       ├── routes.js           # Server routes
-│     ├── server.js             # Start the server
-│   ├── /imageWorker/           # Image worker
-│       ├── worker.js           # Start worker
-│   ├── /uploadWorker/          # Upload worker
-│       ├── worker.js           # Start worker
-│   ├── master.js               # Start entire server, with image worker and upload worker clusters
-│
-├── /test/                      # Server and client side tests
-│   ├── /client/                # Client side tests
-│   ├── /server/                # Server side tests
-│   ├── /data/                  # Holds seed & dummy data
+│   ├── /clusters/              # Cluster processes
+│     ├── download.js           # Download worker
+│     ├── upload.js             # Upload worker
+│     ├── server.js             # Http server
+│   ├── /config/                # Http server config
+│     ├── middleware.js         # Middleware
+│     ├── routes.js             # Route handler
+├── /utils/                     # Utilities
+│   ├── /api.js                 # axios request functions
 └── package.json                # List of 3rd party libraries and utilities to be installed
 └── .eslintrc                   # ESLint settings
 ```
 
 ## Team
+  - Microservice Develoer:    [Sepehr Vakili](https://github.com/sepehrvakili)
   - Product Owner:            [Adam Lessen](https://github.com/lessenadam)
   - Scrum Master:             [Sepehr Vakili](https://github.com/sepehrvakili)
   - Development Team Members: [Jordan Tepper](https://github.com/HeroProtagonist), [Sepehr Vakili](https://github.com/jinsoocha), [Andrew Phavichitr](https://github.com/aphavichitr), [Adam Lessen](https://github.com/lessenadam)

@@ -3,8 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = () => {
-  // downloadJob format: [userPlaceId, videoUrl]
+  // listen for messeages from master
   process.on('message', (downloadJob) => {
+    // downloadJob format: [userPlaceId, videoUrl]
     const videoUrl = downloadJob[1];
     const fileName = videoUrl.match(/\/([^/]*)$/)[1];
     const filePath = path.join(`${__dirname}./../../dist/videos/${fileName}`);
@@ -24,6 +25,8 @@ module.exports = () => {
     writeStream.on('finish', () => {
       console.log('video has been downloaded locally.');
       console.log('sending job to uploader service.');
+      // download worker sends job to master
+      // to forward job to upload worker
       process.send({ upload: downloadJob });
     });
   });

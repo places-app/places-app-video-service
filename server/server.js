@@ -2,7 +2,7 @@ const cluster = require('cluster');
 const downloader = require('./clusters/download');
 const uploader = require('./clusters/upload');
 const server = require('./clusters/server');
-const children = {};
+const workers = {};
 
 // console.log helper
 const log = (service, msg) => {
@@ -23,9 +23,9 @@ const masterJob = () => {
   // http server
   const httpService = () => {
     // if http server is undefined
-    if (children.http === undefined) {
+    if (workers.http === undefined) {
       // create http server
-      const http = children.http = cluster.fork({ ROLE: 'http' });
+      const http = workers.http = cluster.fork({ ROLE: 'http' });
       http.name = 'http server';
 
       // have on online listener to log online
@@ -36,17 +36,17 @@ const masterJob = () => {
       // have an on exit listener to restart it
       http.on('exit', () => {
         log(http, 'has died');
-        delete children.http;
+        delete workers.http;
       });
 
-      // distribute msgs from http to workers
-      // listen on msg
+      // distribute msgs from http master to download worker
+      // listen for msg from http worker
       http.on('message', (msg) => {
         log(http, `received msg ${JSON.stringify(msg)}`);
         // if msg.download
         if (msg.download) {
           // send to download worker
-          children.download.send(msg.download);
+          workers.download.send(msg.download);
           log(http, 'http has sent msg to download service.');
         } else {
           // log unknown msg
@@ -59,9 +59,9 @@ const masterJob = () => {
   // download
   const downloadService = () => {
     // if downloader is undefined
-    if (children.download === undefined) {
+    if (workers.download === undefined) {
       // create downloader
-      const download = children.download = cluster.fork({ ROLE: 'download' });
+      const download = workers.download = cluster.fork({ ROLE: 'download' });
       download.name = 'download worker';
       // have on online listner to log online
       download.on('online', () => {
@@ -70,14 +70,14 @@ const masterJob = () => {
       // have an on exit listener to restart it
       download.on('exit', () => {
         log(download, 'has died');
-        delete children.download;
+        delete workers.download;
       });
-      // listen for work msgs
+      // listen for work msgs from download worker
       download.on('message', (msg) => {
         log(download, `download service received msg: ${JSON.stringify(msg)}`);
         if (msg.upload) {
           log(download, 'sending job to upload service.');
-          children.upload.send(msg.upload);
+          workers.upload.send(msg.upload);
           log(download, `job sent to upload service: ${JSON.stringify(msg.upload)}`);
         }
       });
@@ -87,9 +87,9 @@ const masterJob = () => {
   // upload
   const uploadService = () => {
     // if uploader is undefined
-    if (children.upload === undefined) {
+    if (workers.upload === undefined) {
       // create uploader
-      const upload = children.upload = cluster.fork({ ROLE: 'upload' });
+      const upload = workers.upload = cluster.fork({ ROLE: 'upload' });
       upload.name = 'upload worker';
       // have on online listener to log online
       upload.on('online', () => {
@@ -98,9 +98,9 @@ const masterJob = () => {
       // have on exit listener for uploader
       upload.on('exit', () => {
         log(upload, 'has died');
-        delete children.upload;
+        delete workers.upload;
       });
-      // listen for msgs for work
+      // listen for msgs from upload worker
       upload.on('message', (msg) => {
         log(upload, `upload service received msg: ${JSON.stringify(msg)}`);
       });

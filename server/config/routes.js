@@ -4,7 +4,7 @@ module.exports = (app) => {
     const videoUrl = req.body.videoUrl;
     const userPlaceId = req.body.userPlaceId;
     const job = [userPlaceId, videoUrl];
-    // send message to download worker
+    // send message from http  worker to master
     process.send({ download: job });
     res.sendStatus(200).end();
   });

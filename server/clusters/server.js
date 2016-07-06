@@ -15,6 +15,6 @@ routes(app);
 
 module.exports.start = () => {
   app.listen(process.env.PORT, () => {
-    console.log(`${process.env.APP_NAME} is listening on port ${process.env.PORT}.`);
+    console.log(`${process.env.APP_NAME} is listening at ${process.env.HOST} on port ${process.env.PORT}.`);
   });
 };

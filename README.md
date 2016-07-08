@@ -52,7 +52,7 @@ $ npm start
   - Microservice Developer:   [Sepehr Vakili](https://github.com/sepehrvakili)
   - Product Owner:            [Adam Lessen](https://github.com/lessenadam)
   - Scrum Master:             [Sepehr Vakili](https://github.com/sepehrvakili)
-  - Development Team Members: [Jordan Tepper](https://github.com/HeroProtagonist), [Sepehr Vakili](https://github.com/jinsoocha), [Andrew Phavichitr](https://github.com/aphavichitr), [Adam Lessen](https://github.com/lessenadam)
+  - Development Team Members: [Jordan Tepper](https://github.com/HeroProtagonist), [Sepehr Vakili](https://github.com/sepehrvakili), [Andrew Phavichitr](https://github.com/aphavichitr), [Adam Lessen](https://github.com/lessenadam)
 
 ## Contributing
 See [CONTRIBUTING.md](https://github.com/places-app/places-app-web/blob/master/docs/_CONTRIBUTING.md) for contribution guidelines.

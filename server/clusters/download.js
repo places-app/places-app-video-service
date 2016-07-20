@@ -5,8 +5,9 @@ const path = require('path');
 module.exports = () => {
   // listen for messeages from master
   process.on('message', (downloadJob) => {
-    // downloadJob format: [userPlaceId, videoUrl]
-    const videoUrl = downloadJob[1];
+    // downloadJob format: { userPlaceId, videoUrl }
+    const videoUrl = downloadJob.videoUrl;
+    // use regex to get the video name from the url, everything after /
     const fileName = videoUrl.match(/\/([^/]*)$/)[1];
     const filePath = path.join(`${__dirname}./../../dist/videos/${fileName}`);
     const writeStream = fs.createWriteStream(filePath);

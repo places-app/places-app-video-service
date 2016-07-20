@@ -2,21 +2,8 @@ const cluster = require('cluster');
 const downloader = require('./clusters/download');
 const uploader = require('./clusters/upload');
 const server = require('./clusters/server');
+const log = require('../utils/logger.js');
 const workers = {};
-
-// console.log helper
-const log = (service, msg) => {
-  let name;
-  let pid;
-  if (service.name !== undefined) {
-    name = service.name;
-    pid = service.process.pid;
-  } else {
-    name = 'master';
-    pid = process.pid;
-  }
-  console.log(`[${name} @ ${pid}] ${msg}`);
-};
 
 const masterJob = () => {
   log('master', 'started master');

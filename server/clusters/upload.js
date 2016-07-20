@@ -16,9 +16,8 @@ function deleteVideo(filePath) {
 
 module.exports = () => {
   process.on('message', (uploadJob) => {
-    // uploadJob format is [userPlaceId, videoUrl]
-    const userPlaceId = uploadJob[0];
-    const videoUrl = uploadJob[1];
+    // uploadJob format is { userPlaceId, videoUrl }
+    const { userPlaceId, videoUrl } = uploadJob;
     const fileName = videoUrl.match(/\/([^/]*)$/)[1];
     const filePath = path.join(`${__dirname}./../../dist/videos/${fileName}`);
     const metaData = 'video/mov';
@@ -30,13 +29,14 @@ module.exports = () => {
         Body: fileBuffer,
         ContentType: metaData,
       }, (error, res) => {
-        if (error) {
+        if (!error) {
+          console.log(`uploaded file to s3 ${fileName}`);
+          deleteVideo(filePath);
+          const s3videoUrl = res.Location;
+          updateRemoteUrl(s3videoUrl, userPlaceId);
+        } else {
           console.log(error);
         }
-        console.log(`uploaded file to s3 ${fileName}`);
-        deleteVideo(filePath);
-        const s3videoUrl = res.Location;
-        updateRemoteUrl(s3videoUrl, userPlaceId);
       });
     });
   });
